@@ -1,0 +1,21 @@
+{
+  "name": "jquery_practice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "NODE_ENV=development node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Costas Voloudakis",
+  "license": "MIT",
+  "devDependencies": {
+    "jscs": "^2.9.0",
+    "jshint": "^2.9.1"
+  },
+  "dependencies": {
+    "express": "^4.13.4",
+    "request": "^2.69.0"
+  }
+}
