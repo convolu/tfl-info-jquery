@@ -3,8 +3,8 @@ var config = require('./config'),
     request = require('request'),
     app = express(),
     router = express.Router(),
-    app_id = process.env.TFLAPPID || config.tflAPI.appId,
-    app_key = process.env.TFLAPPKEY|| config.tflAPI.appKey,
+    app_id = config.get('tfl.appId'),
+    app_key = config.get('tfl.appKey'),
 
     tfl_query = 'https://api.tfl.gov.uk/StopPoint/940GZZLUKSX/Arrivals?app_id=' + app_id + '&app_key=' + app_key;
 
@@ -76,9 +76,9 @@ router.get('/lines/', function (req, res) {
     });
 });
 
-if (process.env.NODE_ENV === "development") {
+if (config.get('env') === "development") {
     app.use('/', express.static('public'));
 }
 app.use('/api', router);
 
-app.listen(3000);
+app.listen(config.get('port'));
