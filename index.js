@@ -13,7 +13,8 @@ if (app_id === "" || app_key === "") {
 }
 
 router.use(function (req, res, next) {
-    console.log(req.method, req.url);
+    var date = new Date();
+    console.log(date.toISOString() , req.method, req.url);
     next();
 });
 
