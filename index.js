@@ -49,7 +49,7 @@ router.get('/kc', function (req, res) {
 });
 
 router.get('/lines/', function (req, res) {
-    var lines_query = "https://api.tfl.gov.uk/Line/Mode/tube,dlr?app_id=" + app_id + "&app_key=" + app_key;
+    var lines_query = "https://api.tfl.gov.uk/Line/Mode/tube,dlr/Status?detail=True&app_id=" + app_id + "&app_key=" + app_key;
 
     request(lines_query, function (error, response, body) {
         var ret_array = [];
@@ -67,6 +67,8 @@ router.get('/lines/', function (req, res) {
 
                     obj.name = currentValue.name;
                     obj.id = currentValue.id;
+                    obj.statusDesc = currentValue.lineStatuses[0].statusSeverityDescription;
+                    obj.statusSeverity = parseInt(currentValue.lineStatuses[0].statusSeverity);
                     ret_array.push(obj);
                 });
             } else {
