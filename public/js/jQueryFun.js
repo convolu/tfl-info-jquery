@@ -1,3 +1,7 @@
+function clear_status_div() {
+    $("#statusDiv").children().remove()
+}
+
 function remove_lines_table() {
     $("#linesBtnGrp").remove();
 }
@@ -10,7 +14,22 @@ function generate_lines_table(data) {
         $("#linesDiv").append('<div class="btn-group-vertical" role="group" id="linesBtnGrp"></div>');
 
         lines_list.forEach(function (line_obj) {
-            $("#linesBtnGrp:last-child").append('<button type="button" class="btn btn-default">' + line_obj.name + '</button>');
+            var btnId = line_obj.id + "Id",
+                btnClass = "btn-default",
+                btn = '<button type="button" class="btn" id="' + btnId + '">' + line_obj.name + '</button>';
+            $("#linesBtnGrp:last-child").append(btn);
+            console.log(line_obj.statusSeverity);
+            if (line_obj.statusSeverity === 10) {
+                $("#" + btnId).addClass("btn-default");
+            } else {
+                $("#" + btnId).addClass("btn-warning");
+            }
+
+            $("#" + btnId).click(function() {
+                 console.log("Pressed this: " + this.id);
+                 clear_status_div();
+                 $("#statusDiv").append("<span>" + line_obj.statusDesc + " </span>");
+            });
         });
     }
 }
@@ -19,7 +38,6 @@ function get_lines_and_create_table() {
     remove_lines_table();
     $.get("/api/lines", generate_lines_table);
 }
-
 
 
 function remove_kx_table() {
